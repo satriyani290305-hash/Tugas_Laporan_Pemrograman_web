@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Elektronik Cepat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        #jam {
+            position: absolute;
+            right: 10px;
+            top: 25px;
+            font-size: 14px;
+            color: #0056b3;
+            font-weight: bold;
+        }
+        .main-content {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        /* Bagian Kiri: Display Utama */
+        .display-produk {
+            flex: 2;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .image-box {
+            width: 100%;
+            height: 320px;
+            border: 1px solid #999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .nav-buttons button {
+            background-color: #5a6268;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .nav-buttons button:hover {
+            background-color: #434a4f;
+        }
+        .detail-produk h2 {
+            margin: 15px 0 5px 0;
+            font-size: 22px;
+            color: #222;
+        }
+        .detail-produk p {
+            margin: 0;
+            font-size: 18px;
+            color: #b22222;
+            font-weight: bold;
+        }
+        .sidebar {
+            flex: 1;
+        }
+        .daftar-box {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .daftar-box h3 {
+            margin-top: 0;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .list-produk {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .item-produk {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            font-size: 14px;
+            background: #fff;
+        }
+        .item-produk:last-child {
+            border-bottom: none;
+        }
+        .item-produk:hover {
+            background-color: #f0f0f0;
+        }
+        .form-section {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 25px;
+            max-width: 450px;
+        }
+        .form-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #fcfcfc;
+        }
+        .btn-pesan {
+            width: 100%;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .btn-pesan:hover {
+            background-color: #1b5e20;
+        }
+        .error-text {
+            color: red;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+        /* Area Struk */
+        .struk-box {
+            background: #fffdf0;
+            border: 2px dashed #2e7d32;
+            padding: 15px;
+            margin-top: 20px;
+            max-width: 450px;
+            font-family: monospace;
+            display: none;
+        }
+    </style>
+</head>
+<body onload="jalankanJam()">
+
+    <div class="container">
+        <!-- 1. Header & Waktu Transaksi -->
+        <h1>Toko Elektronik Cepat</h1>
+        <div id="jam">00:00:00 AM</div>
+
+        <div class="main-content">
+            <!-- 2. Display Produk Utama -->
+            <div class="display-produk">
+                <div class="image-box">
+                    <img id="slideshow-image" src="" alt="Slideshow Gambar">
+                </div>
+                <div class="nav-buttons">
+                    <button onclick="gantiGambar(-1)">Previous</button>
+                    <button onclick="gantiGambar(1)">Next</button>
+                </div>
+                <div class="detail-produk">
+                    <h2 id="nama-produk-aktif">Nama Produk</h2>
+                    <p id="harga-produk-aktif">Rp.0</p>
+                </div>
+            </div>
+
+            <!-- 3. Daftar Produk -->
+            <div class="sidebar">
+                <div class="daftar-box">
+                    <h3>Daftar Produk</h3>
+                    <div class="list-produk" id="daftar-matkul">
+                        <!-- Diisi otomatis oleh JavaScript loop -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Form Pemesanan -->
+        <div class="form-section">
+            <h3>Form Pemesanan</h3>
+            <div class="form-group">
+                <label>Nama:</label>
+                <input type="text" id="namaPemesan">
+                <div id="nama-error" class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <label>Jumlah:</label>
+                <input type="number" id="jumlahPesan" min="1">
+                <div id="jumlah-error" class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <label>Kode Promo:</label>
+                <input type="text" id="kodePromo">
+            </div>
+            <button class="btn-pesan" onclick="prosesPemesanan()">Pesan Sekarang</button>
+        </div>
+
+        <!-- Area Output Struk -->
+        <div id="struk-output" class="struk-box"></div>
+    </div>
+
+    <script>
+        // Data Produk baru yang beda dari foto Anda (Tablet, Smartwatch, Kamera)
+        var produk = [
+            {
+                nama: "Tablet iPad Air",
+                harga: 11500000,
+                gambar: [
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeIUxJ49lMe2NByhCBLX104Ekvh2b_wWI1gg3BiuJUlQ&s=10",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeIUxJ49lMe2NByhCBLX104Ekvh2b_wWI1gg3BiuJUlQ&s=10"
+                ]
+            },
+            {
+                nama: "Smartwatch",
+                harga: 3200000,
+                gambar: [
+                    "https://img.antaranews.com/cache/730x487/2025/01/14/PicsArt_01-14-06.57.49.jpg",
+                    "https://img.antaranews.com/cache/730x487/2025/01/14/PicsArt_01-14-06.57.49.jpg"
+                ]
+            },
+            {
+                nama: "Kamera DSLR",
+                harga: 8900000,
+                gambar: [
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoI1pWZrFlkyl-PKIEFzACSS-xbdYyfX7obD7QqeB_MA&s=10",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoI1pWZrFlkyl-PKIEFzACSS-xbdYyfX7obD7QqeB_MA&s=10"
+                ]
+            }
+        ];
+
+        var indexProdukAktif = 0;
+        var indexGambarAktif = 0;
+
+        // 1. Fungsi Jam Dinamis (Format Real-time AM/PM)
+        function updateJam() {
+            var sekarang = new Date();
+            var opsi = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            document.getElementById("jam").innerText = sekarang.toLocaleTimeString('en-US', opsi);
+        }
+
+        function jalankanJam() {
+            setInterval(updateJam, 1000);
+            updateJam();
+            inisialisasiHalaman();
+        }
+
+        function inisialisasiHalaman() {
+            renderDaftarProduk();
+            pilihProduk(0);
+        }
+
+        // 3. Render Daftar Produk via Perulangan Array
+        function renderDaftarProduk() {
+            var elDaftar = document.getElementById("daftar-matkul");
+            elDaftar.innerHTML = "";
+            for (let i = 0; i < produk.length; i++) {
+                elDaftar.innerHTML += `
+                    <div class="item-produk" onclick="pilihProduk(${i})">${produk[i].nama}</div>
+                `;
+            }
+        }
+
+        function pilihProduk(index) {
+            indexProdukAktif = index;
+            indexGambarAktif = 0;
+            tampilkanProdukAktif();
+        }
+
+        function tampilkanProdukAktif() {
+            var prod = produk[indexProdukAktif];
+            document.getElementById("nama-produk-aktif").innerText = prod.nama;
+            document.getElementById("harga-produk-aktif").innerText = "Rp." + prod.harga.toLocaleString('en-US');
+            tampilkanGambar();
+        }
+
+        // 2. Fungsi Slideshow Gambar
+        function tampilkanGambar() {
+            var gambarArray = [] = produk[indexProdukAktif].gambar;
+            document.getElementById("slideshow-image").src = gambarArray[indexGambarAktif];
+        }
+
+        function gantiGambar(arah) {
+            var gambarArray = [] = produk[indexProdukAktif].gambar;
+            indexGambarAktif += arah;
+            
+            if (indexGambarAktif >= gambarArray.length) {
+                indexGambarAktif = 0;
+            }
+            if (indexGambarAktif < 0) {
+                indexGambarAktif = gambarArray.length - 1;
+            }
+            tampilkanGambar();
+        }
+
+        function prosesPemesanan() {
+            var nama = document.getElementById("namaPemesan").value.trim();
+            var jumlah = parseInt(document.getElementById("jumlahPesan").value);
+            var promo = document.getElementById("kodePromo").value.trim();
+
+            document.getElementById("nama-error").innerText = "";
+            document.getElementById("jumlah-error").innerText = "";
+            var valid = true;
+
+            if (nama === "") {
+                document.getElementById("nama-error").innerText = "Nama tidak boleh kosong!";
+                valid = false;
+            }
+            if (isNaN(jumlah) || jumlah <= 0) {
+                document.getElementById("jumlah-error").innerText = "Jumlah tidak boleh kosong!";
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            var prod = produk[indexProdukAktif];
+            var subtotal = prod.harga * jumlah;
+            var potongan = 0;
+
+            if (promo.toUpperCase() === "DISKON10") {
+                potongan = subtotal * 0.10;
+            }
+
+            var totalAkhir = subtotal - potongan;
+            var angkaAcak = Math.floor(Math.random() * 90000) + 10000;
+            var orderId = "INV-" + angkaAcak;
+
+            var strukHTML = `
+                <h4 style="margin:0 0 10px 0; text-align:center;">RINGKASAN PESANAN</h4>
+                <p>====================================</p>
+                <p><b>Order ID    :</b> ${orderId}</p>
+                <p><b>Nama        :</b> ${nama}</p>
+                <p><b>Produk      :</b> ${prod.nama}</p>
+                <p><b>Jumlah      :</b> ${jumlah} pcs</p>
+                <p>------------------------------------</p>
+                <p><b>Subtotal    :</b> Rp.${subtotal.toLocaleString('en-US')}</p>
+                <p><b>Potongan    :</b> Rp.${potongan.toLocaleString('en-US')}</p>
+                <p>====================================</p>
+                <p style="font-size:16px; color:#b22222;"><b>Total Akhir :</b> Rp.${totalAkhir.toLocaleString('en-US')}</p>
+            `;
+
+            var elStruk = document.getElementById("struk-output");
+            elStruk.innerHTML = strukHTML;
+            elStruk.style.display = "block";
+
+            alert("Registrasi Berhasil!\nOrder ID Anda: " + orderId);
+        }
+    </script>
+</body>
+</html>
