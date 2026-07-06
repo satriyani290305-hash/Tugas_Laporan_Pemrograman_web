@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran Mahasiswa Baru</title>
+</head>
+
+<body style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f4f8; margin: 0; padding: 40px 20px; color: #333; line-height: 1.6;">
+
+    
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+        
+        
+        <div style="text-align: center; margin-bottom: 35px; border-bottom: 2px solid #eef2f5; padding-bottom: 20px;">
+            <!-- Memanggil file gambar logo lokal kamu -->
+            <img src=logo.stitek.png.jpeg alt="Logo STITEK Bontang" width="120" style="margin-bottom: 15px;">
+            <h1 style="margin: 0; font-size: 26px; color: #1a365d; font-weight: 200; letter-spacing: -0.5px;">Formulir Pendaftaran</h1>
+            <p style="margin: 5px 0 0 0; color: #627d98; font-size: 16px;">Calon Mahasiswa Baru STITEK Bontang</p>
+        </div>
+
+        
+        <form action="#" method="POST">
+
+        
+            <fieldset style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin-bottom: 25px; background-color: #f8fafc;">
+                <legend style="font-weight: bold; color: #1e3a8a; padding: 0 12px; font-size: 16px;">A. Data Pribadi</legend>
+
+
+                <div style="margin-bottom: 20px;">
+                    <label for="nama_lengkap" style="display: block; font-weight: 600; margin-bottom: 8px; color: #334155;">Nama Lengkap <span style="color: #dc2626;">*</span></label>
+                    <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap sesuai ijazah" required 
+                           style="width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; background-color: #ffffff;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="email" style="display: block; font-weight: 600; margin-bottom: 8px; color: #334155;">Alamat Email <span style="color: #dc2626;">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="contoh: satriyani@stitek.ac.id" required 
+                           style="width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; background-color: #ffffff;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <span style="display: block; font-weight: 600; margin-bottom: 8px; color: #334155;">Jenis Kelamin <span style="color: #dc2626;">*</span></span>
+                    
+                    <div style="display: inline-block; margin-right: 25px; cursor: pointer;">
+                        <input type="radio" id="pria" name="jenis_kelamin" value="Pria" required style="transform: scale(1.2); margin-right: 6px; vertical-align: middle;">
+                        <label for="pria" style="vertical-align: middle; cursor: pointer;">Pria</label>
+                    </div>
+                    
+                    <div style="display: inline-block; cursor: pointer;">
+                        <input type="radio" id="wanita" name="jenis_kelamin" value="Wanita" required style="transform: scale(1.2); margin-right: 6px; vertical-align: middle;">
+                        <label for="wanita" style="vertical-align: middle; cursor: pointer;">Wanita</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin-bottom: 30px; background-color: #f8fafc;">
+                <legend style="font-weight: bold; color: #1e3a8a; padding: 0 12px; font-size: 16px;">B. Informasi Akademik & Domisili</legend>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="jurusan" style="display: block; font-weight: 600; margin-bottom: 8px; color: #334155;">Pilihan Program Studi <span style="color: #dc2626;">*</span></label>
+                    <select id="jurusan" name="jurusan" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; background-color: #ffffff; cursor: pointer;">
+                        <option value="">-- Pilih Program Studi --</option>
+                        <option value="Teknik Informatika">S1 - Teknik Informatika</option>
+                        <option value="Teknik Elektro">S1 - Teknik Elektro</option>
+                        <option value="Sistem Informasi">S1 - Sistem Informasi</option>
+                        <option value="Sistem Informasi">S1 - Bisnis Digital</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <span style="display: block; font-weight: 600; margin-bottom: 8px; color: #334155;">Hobi / Minat Bakat:</span>
+                    
+                    <div style="margin-bottom: 6px;">
+                        <input type="checkbox" id="hobi_membaca" name="hobi[]" value="Membaca" style="transform: scale(1.2); margin-right: 8px; vertical-align: middle;">
+                        <label for="hobi_membaca" style="vertical-align: middle; cursor: pointer;">Membaca Buku</label>
+                    </div>
+                    
+                    <div style="margin-bottom: 6px;">
+                        <input type="checkbox" id="hobi_olahraga" name="hobi[]" value="Olahraga" style="transform: scale(1.2); margin-right: 8px; vertical-align: middle;">
+                        <label for="hobi_olahraga" style="vertical-align: middle; cursor: pointer;">Olahraga</label>
+                    </div>
+                    
+                    <div>
+                        <input type="checkbox" id="hobi_musik" name="hobi[]" value="Musik" style="transform: scale(1.2); margin-right: 8px; vertical-align: middle;">
+                        <label for="hobi_musik" style="vertical-align: middle; cursor: pointer;">Musik / Kesenian</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="alamat" style="display: block; font-weight: 600; margin-bottom: 8px; color: #334155;">Alamat Rumah Lengkap (Opsional):</label>
+                    <textarea id="alamat" name="alamat" rows="3" placeholder="Contoh: Jl. Poros Bontang - Samarinda No. 10" 
+                              style="width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; background-color: #ffffff; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+            </fieldset>
+
+            <div style="margin-bottom: 10px;">
+                <button type="submit" style="width: 100%; background-color: #059669; color: #ffffff; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    Kirim Formulir Pendaftaran
+                </button>
+            </div>
+
+        </form>
+
+        <div style="text-align: center; margin-top: 25px; border-top: 1px solid #eef2f5; padding-top: 20px;">
+            <p style="font-size: 14px; color: #64748b; margin: 0;">
+                Butuh Informasi mengenai perkuliahan? <br>
+                <a href="https://stitek.ac.id" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">Hubungi Layanan Informasi STITEK</a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
