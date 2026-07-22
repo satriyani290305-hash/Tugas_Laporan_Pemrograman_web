@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Tamu Digital STITEK Bontang</title>
+    <style>
+        /* CSS internal untuk mengatur layout agar rapi dan user-friendly */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        header h1 {
+            color: #0056b3;
+            margin: 0;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        .error-msg {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        .result-box {
+            background-color: #e2f0d9;
+            color: #385723;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 25px;
+            border: 1px solid #c5e0b4;
+        }
+        .result-box h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #385723;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 1. Header Website -->
+    <header>
+        <h1>Buku Tamu Digital STITEK Bontang</h1>
+    </header>
+
+    <?php
+    // Inisialisasi variabel status dan error
+    $errors = [];
+    $sukses = false;
+    $nama = $email = $pesan = "";
+
+    // Memproses form jika metode yang digunakan adalah POST
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
+        // 3. Validasi Server-side: Memastikan tidak ada data yang kosong
+        if (empty($_POST["nama"])) {
+            $errors[] = "Nama Lengkap wajib diisi.";
+        } else {
+            // Mencegah XSS dengan htmlspecialchars
+            $nama = htmlspecialchars(trim($_POST["nama"]));
+        }
+
+        if (empty($_POST["email"])) {
+            $errors[] = "Alamat Email wajib diisi.";
+        } else {
+            $email = htmlspecialchars(trim($_POST["email"]));
+        }
+
+        if (empty($_POST["pesan"])) {
+            $errors[] = "Pesan/Komentar wajib diisi.";
+        } else {
+            $pesan = htmlspecialchars(trim($_POST["pesan"]));
+        }
+
+        // Jika tidak ada error, set sukses menjadi true
+        if (empty($errors)) {
+            $sukses = true;
+        }
+    }
+    ?>
+
+    <!-- Menampilkan Pesan Error jika Validasi Gagal -->
+    <?php if (!empty($errors)): ?>
+        <div class="error-msg">
+            <strong>Terjadi Kesalahan:</strong>
+            <ul style="margin: 5px 0 0 20px; padding: 0;">
+                <?php foreach ($errors as $error): ?>
+                    <li><?php echo $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <!-- 2. Form Input -->
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" name="nama" value="<?php echo $nama; ?>" placeholder="Masukkan nama lengkap anda">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Alamat Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo $email; ?>" placeholder="contoh@stitek.ac.id">
+        </div>
+
+        <div class="form-group">
+            <label for="pesan">Pesan / Komentar:</label>
+            <textarea id="pesan" name="pesan" placeholder="Tuliskan pesan atau komentar Anda di sini..."><?php echo $pesan; ?></textarea>
+        </div>
+
+        <button type="submit">Kirim Pesan</button>
+    </form>
+
+    <!-- 3. Area Tampilan Data (Muncul setelah sukses submit) -->
+    <?php if ($sukses): ?>
+        <div class="result-box">
+            <h3> Terima Kasih! Pesan Berhasil Terkirim</h3>
+            <p><strong>Nama:</strong> <?php echo $nama; ?></p>
+            <p><strong>Email:</strong> <?php echo $email; ?></p>
+            <p><strong>Pesan:</strong><br><?php echo nl2br($pesan); ?></p>
+        </div>
+    <?php endif; ?>
+
+</div>
+
+</body>
+</html>
